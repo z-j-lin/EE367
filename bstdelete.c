@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 struct Node {
-	char data;
+  char data;
 	struct Node *left;
 	struct Node *right;
 };
@@ -15,66 +15,66 @@ void postorder(struct Node * root);
 struct Node * delete(struct Node * root, char c);
 
 void main(){
-char tree[] = "hca//d/fe///mk//rn/p///";
+  char tree[] = "hca//d/fe///mk//rn/p///";
 
-int curr = 0;
-struct Node * root = createTree(tree, &curr);
-printf("Initial Tree Encoding: %s\n", tree);
-printf("Preorder: ");
-preorder(root);
-printf("\n");
-printf("Inorder: ");
-inorder(root);
-printf("\n");
-printf("Postorder: ");
-postorder(root);
-printf("\n");
+  int curr = 0;
+  struct Node * root = createTree(tree, &curr);
+  printf("Initial Tree Encoding: %s\n", tree);
+  printf("Preorder: ");
+  preorder(root);
+  printf("\n");
+  printf("Inorder: ");
+  inorder(root);
+  printf("\n");
+  printf("Postorder: ");
+  postorder(root);
+  printf("\n");
 
-root = delete(root,'f'); 
-root = delete(root,'c'); 
-root = delete(root,'m'); 
-printf("\nDeleted 'f', 'c', and then 'm'\n");
-printf("Preorder: ");
-preorder(root);
-printf("\n");
-printf("Inorder: ");
-inorder(root);
-printf("\n");
-printf("Postorder: ");
-postorder(root);
-printf("\n");
+  root = delete(root,'f'); 
+  root = delete(root,'c'); 
+  root = delete(root,'m'); 
+  printf("\nDeleted 'f', 'c', and then 'm'\n");
+  printf("Preorder: ");
+  preorder(root);
+  printf("\n");
+  printf("Inorder: ");
+  inorder(root);
+  printf("\n");
+  printf("Postorder: ");
+  postorder(root);
+  printf("\n");
 
-return;
+  return;
 }
 
 /* Deletes node 'c' from tree 'root' */
-struct Node * delete(struct Node * root, char c)
-{   
-    //the base case where the root is empty
+struct Node * delete(struct Node * root, char c){   
+    //the base case for empty tree
     if(root == NULL){
-        return root;
+      return root;
     }
-    
-    //if c is larger than the current node char then target is on the right  
+    //if the target is larger that the current node   
     if(c > root->data){
-        root->right = delete(root->right, c);
+      //recursivly traverse toward the right node
+      root->right = delete(root->right, c);
     }
     //if the char is less than the one in the node then the target must be on the left
     else if(c < root->data){
-        root->left = delete(root->left, c);
+      //recursivly traverse the left side;
+      root->left = delete(root->left, c);
     }
-    
+    //when you have found the node 
     else{
         //when the node char is the same as c we delete the node 
         //can't simply just delete it though 
         //we have to check if the root that we are at has children
-        //you can't kill someones parents without dealing with the children
         if(root->left == NULL){
             //if there are no left children
             //store right node in a temp node
             struct node *temp = root->right;
             //delete the current node 
             free(root);
+          //stick the right node in the deleted spot 
             return temp;
         }
         else if(root->right == NULL){
